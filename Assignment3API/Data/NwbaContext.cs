@@ -10,6 +10,10 @@ namespace Assignment3API.Data
 {
     public class NwbaContext : DbContext
     {
+
+        public NwbaContext(DbContextOptions<NwbaContext> options) : base(options)
+        { }
+
         // Write Fluent API here 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Login> Logins { get; set; }
