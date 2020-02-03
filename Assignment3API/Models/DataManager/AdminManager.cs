@@ -8,14 +8,41 @@ using Assignment3API.Models.Repository;
 
 namespace Assignment3API.Models.DataManager
 {
-    public class CustomerManager : IDataRepository<Customer, int>
+    public class AdminManager : IDataRepository<Customer, int>
     {
         private readonly NwbaContext _context;
 
-        public CustomerManager(NwbaContext context)
+        public AdminManager(NwbaContext context)
         {
             _context = context;
         }
+
+
+        // Gets all Transactions for a user 
+        public List<Transaction> GetCustomerTransactions(int id, DateTime start, DateTime end)
+        {
+            var customer = _context.Customers.Find(id);
+            List<Transaction> transactions = new List<Transaction>(); 
+
+            foreach(var account in customer.Accounts)
+            {
+                foreach(var transaction in account.Transactions)
+                {
+                    // Range of specified time period
+                    if(transaction.ModifyDate >= start && transaction.ModifyDate <= end)
+                        transactions.Add(transaction);
+                }
+            }
+
+            return transactions; 
+        }
+
+
+
+
+
+
+
 
 
         // Returning customer by ID - SQL: select * from customer where customerid is <> 

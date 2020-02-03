@@ -30,7 +30,7 @@ namespace Assignment3API
             services.AddDbContext<NwbaContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("NwbaContext")));
 
-            services.AddTransient<CustomerManager>();
+            services.AddTransient<AdminManager>();
             services.AddControllers();
         }
 

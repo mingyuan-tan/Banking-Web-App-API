@@ -17,13 +17,22 @@ namespace Assignment3API.Controllers
     public class CustomersController : ControllerBase
     {
         // Create an instance of the manager class and pass it to the constructor 
-        private readonly CustomerManager _repo;
+        private readonly AdminManager _repo;
 
         // This is a constructor dependency injection 
-        public CustomersController(CustomerManager repo)
+        public CustomersController(AdminManager repo)
         {
             _repo = repo;
         }
+
+
+        // Calls repo method to get all transactions of user from specified date 
+        [HttpGet]
+        public IEnumerable<Transaction> GetCustomerTransactions (int id, DateTime start, DateTime end)
+        {
+            return _repo.GetCustomerTransactions(id, start, end);
+        }
+
 
 
         // GET: api/customers - get all the customers 
