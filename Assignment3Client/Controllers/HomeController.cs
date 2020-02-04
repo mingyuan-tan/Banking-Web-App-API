@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Assignment3Client.Models;
@@ -33,7 +34,20 @@ namespace Assignment3Client.Controllers
                 return View(new AdminLogin { AdminLoginID = adminLoginID });
             }
 
+            // Session to check if admin is logged in 
+            HttpContext.Session.SetString(nameof(AdminLogin.AdminLoginID), adminLoginID);
+
             return RedirectToAction("Index", "Admins");
+
+          
+        }
+
+        public IActionResult Logout()
+        {
+            // Log out admin
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Privacy()
