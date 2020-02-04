@@ -27,6 +27,7 @@ namespace Assignment3API.Controllers
 
 
         // Calls repo method to get all transactions of user from specified date 
+        [Route("customer/getCustomerTransactions")]
         [HttpGet]
         public IEnumerable<Transaction> GetCustomerTransactions (int id, DateTime start, DateTime end)
         {

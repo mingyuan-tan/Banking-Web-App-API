@@ -23,6 +23,19 @@ namespace Assignment3Client.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Index(string adminLoginID, string password)
+        {
+            if(adminLoginID != "admin" && password != "admin")
+            {
+                ModelState.AddModelError("LoginFailed", "Login failed please try again");
+
+                return View(new AdminLogin { AdminLoginID = adminLoginID });
+            }
+
+            return RedirectToAction("Index", "Admins");
+        }
+
         public IActionResult Privacy()
         {
             return View();
