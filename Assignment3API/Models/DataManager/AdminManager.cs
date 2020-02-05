@@ -21,28 +21,24 @@ namespace Assignment3API.Models.DataManager
         // Gets all Transactions for a user 
         public List<Transaction> GetCustomerTransactions(int id, DateTime start, DateTime end)
         {
-            var customer = _context.Customers.Find(id);
-            List<Transaction> transactions = new List<Transaction>(); 
+            var transactions = _context.Transactions.Where(x => x.Account.CustomerID == id).ToList();
+            List<Transaction> filteredTransactions = new List<Transaction>();
 
-            foreach(var account in customer.Accounts)
+            foreach (var transaction in transactions)
             {
-                foreach(var transaction in account.Transactions)
-                {
-                    // Range of specified time period
-                    if(transaction.ModifyDate >= start && transaction.ModifyDate <= end)
-                        transactions.Add(transaction);
-                }
+                // Range of specified time period
+                if (transaction.ModifyDate >= start && transaction.ModifyDate <= end)
+                    filteredTransactions.Add(transaction);
             }
 
-            return transactions; 
+
+            return filteredTransactions;
         }
 
-
-
-
-
-
-
+        public List<BillPay> GetCustomerBillPays(int id)
+        {
+            return  _context.BillPays.Where(x => x.Account.CustomerID == id).ToList();
+        }
 
 
         // Returning customer by ID - SQL: select * from customer where customerid is <> 
@@ -55,11 +51,12 @@ namespace Assignment3API.Models.DataManager
         // Simple loading and getting all the data 
         public IEnumerable<Customer> GetAll()
         {
+
             return _context.Customers.ToList();
         }
 
 
-        // Inserts data and generate a new customer 
+        // Inserts data and generate a new customer
         public int Add(Customer customer)
         {
             _context.Customers.Add(customer);
@@ -84,6 +81,25 @@ namespace Assignment3API.Models.DataManager
             _context.SaveChanges();
 
             return id;
+        }
+
+        public IEnumerable<BillPay> GetAllBillPays()
+        {
+
+            return _context.BillPays.ToList();
+        }
+
+        public int UpdateBillPay(int id, BillPay billPay)
+        {
+            _context.Update(billPay);
+            _context.SaveChanges();
+
+            return id;
+        }
+
+        public BillPay GetBillPay(int id)
+        {
+            return _context.BillPays.Find(id);
         }
     }
 }

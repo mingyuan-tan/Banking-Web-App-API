@@ -8,7 +8,6 @@ namespace WDT_Assignment2.Models
     public class BillPay
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Required, Range(1000,9999)]
         public int BillPayID { get; set; }
 
         [ForeignKey("Account")]

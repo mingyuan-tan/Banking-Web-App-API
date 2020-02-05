@@ -24,7 +24,7 @@ namespace Assignment3Client.ViewModels
         public List<SelectListItem> Status { get; } = new List<SelectListItem>
         {
             new SelectListItem { Value = "Active", Text = "Active" },
-            new SelectListItem { Value = "Blocked", Text = "Blocked" },
+            new SelectListItem { Value = "Locked", Text = "Locked" },
             
         };
     }
