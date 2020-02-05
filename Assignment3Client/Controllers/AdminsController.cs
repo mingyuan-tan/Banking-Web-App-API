@@ -179,7 +179,7 @@ namespace Assignment3Client.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("ViewBillPays");
+                    return RedirectToAction("Index");
                 }
             }
 
