@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="ViewTransactions">
+        <form>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @*<input type="hidden" asp-for="BillPayID" />*@
             <div class="form-group">
@@ -34,7 +34,8 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="View Transactions" class="btn btn-primary" />
+                <input type="submit" value="View Transactions" formaction ="ViewTransactions" class="btn btn-primary" />
+                <input type="submit" value="View Charts" formaction ="ChartsData" class="btn btn-primary" />
             </div>
         </form>
     </div>
