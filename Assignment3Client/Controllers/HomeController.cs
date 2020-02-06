@@ -27,19 +27,17 @@ namespace Assignment3Client.Controllers
         [HttpPost]
         public IActionResult Index(string adminLoginID, string password)
         {
-            if(adminLoginID != "admin" && password != "admin")
+            if(adminLoginID == "admin" && password == "admin")
             {
-                ModelState.AddModelError("LoginFailed", "Login failed please try again");
+                // Session to check if admin is logged in 
+                HttpContext.Session.SetString(nameof(AdminLogin.AdminLoginID), adminLoginID);
 
-                return View(new AdminLogin { AdminLoginID = adminLoginID });
+                return RedirectToAction("Index", "Admins");
             }
 
-            // Session to check if admin is logged in 
-            HttpContext.Session.SetString(nameof(AdminLogin.AdminLoginID), adminLoginID);
+            ModelState.AddModelError("LoginFailed", "Login failed please try again");
 
-            return RedirectToAction("Index", "Admins");
-
-          
+            return View(new AdminLogin { AdminLoginID = adminLoginID });
         }
 
         public IActionResult Logout()

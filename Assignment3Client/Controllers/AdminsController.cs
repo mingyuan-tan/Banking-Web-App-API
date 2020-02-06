@@ -13,10 +13,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Assignment3Client.Controllers
 {
+
     [AuthorizeAdmin]
     public class AdminsController : Controller
     {
-
+        [Route("Home/Index")]
         public async Task<IActionResult> Index()
         {
             var response = await BankAPI.InitializeClient().GetAsync("api/Customers");
@@ -35,6 +36,7 @@ namespace Assignment3Client.Controllers
             return View(customers);
         }
 
+        [Route("Home/kokocrunch")]
         public async Task<IActionResult> EditCustomerProfile(int? id)
         {
             if (id == null)
@@ -84,6 +86,7 @@ namespace Assignment3Client.Controllers
             return View(customer);
         }
 
+        [Route("Home/milo")]
         public async Task<IActionResult> IndexToTransactions()
         {
             var response = await BankAPI.InitializeClient().GetAsync("api/Customers");
@@ -123,7 +126,8 @@ namespace Assignment3Client.Controllers
         }
 
 
-       public async Task<IActionResult> ViewBillPays(int id)
+        [Route("Home/cornflakes")]
+        public async Task<IActionResult> ViewBillPays(int id)
         {
             var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getCustomerBillPays/{id}");
 
@@ -141,6 +145,7 @@ namespace Assignment3Client.Controllers
             return View(billPays);
         }
 
+        [Route("Home/uncletobys")]
         public async Task<IActionResult> EditBillPay(int? id)
         {
             if (id == null)
