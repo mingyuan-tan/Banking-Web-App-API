@@ -42,6 +42,13 @@ namespace Assignment3API.Controllers
         }
 
 
+        [HttpGet("getCustomerFromBillPay/{id}")] 
+        public int GetCustomerFromBillPay(int id)
+        {
+            return _repo.GetCustomerFromBillPay(id);
+        }
+
+
         // GET: api/customers - get all the customers 
         // Notice that in this method we are not writing any query. All the logic is handled 
         // by the manager file 

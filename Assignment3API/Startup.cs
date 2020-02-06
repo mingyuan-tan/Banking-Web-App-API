@@ -31,6 +31,7 @@ namespace Assignment3API
                 options.UseSqlServer(Configuration.GetConnectionString("NwbaContext")));
 
             services.AddTransient<AdminManager>();
+
             services.AddControllers();
         }
 

@@ -101,5 +101,16 @@ namespace Assignment3API.Models.DataManager
         {
             return _context.BillPays.Find(id);
         }
+
+        public int GetCustomerFromBillPay(int id)
+        {
+            var billPay = _context.BillPays.Where(x => x.BillPayID == id).FirstOrDefault();
+
+            var account = _context.Accounts.Where(x => x.AccountNumber == billPay.AccountNumber).FirstOrDefault();
+
+            
+
+            return account.CustomerID;
+        }
     }
 }
