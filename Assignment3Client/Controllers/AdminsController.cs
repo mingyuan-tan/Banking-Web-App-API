@@ -122,6 +122,31 @@ namespace Assignment3Client.Controllers
 
         }
 
+        public IActionResult Charts()
+        {
+            return View();
+        }
+
+        public IActionResult ChartsData(List<Transaction> transactions)
+        {
+            var result = transactions.GroupBy(x => new { group = x.TransactionType })
+                                            .Select(group => new 
+                                            { 
+                                                transactionType = group.Key.group, count = group.Count() 
+                                            }).OrderByDescending(o => o.count).ToList();
+
+            var labels = result.Select(x => x.transactionType).ToArray();
+            var values = result.Select(x => x.count).ToArray();
+            var maxValue = values[0];
+
+            List<object> list = new List<object>();
+            list.Add(labels);
+            list.Add(values);
+            list.Add(maxValue);
+
+            return Json(list);
+        }
+
 
        public async Task<IActionResult> ViewBillPays(int id)
         {

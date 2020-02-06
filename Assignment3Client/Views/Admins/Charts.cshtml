@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Charts";
+}
+
+<div class="card mb-3">
+    <div class="card-header bg-warning text-dark">
+        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+        Testing Chart
+    </div>
+    <div class="card-body">
+        <canvas id="chart1" class="chartjs-render-monitor" style="display: block; "></canvas>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs.Chart.js.2.9.3/Chart.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdeliver.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
+    <script>
+        $(document).ready(setup);
+
+        function setup()
+        {
+            var option =
+            {
+                type: "GET",
+                url: "/Admins/ChartsData",
+                contentType: "application /json; charset = utf-8",
+                datatype: "json",
+                success: data_arrived
+            }
+
+            $.ajax(option);
+        }
+
+        function data_arrived(data)
+        {
+            var x_data = data[0];
+            var y_data = data[1];
+
+            var graph_data =
+            {
+                label: x_data,
+                datasets: [
+                    {
+                        label: 'test',
+                        data: y_data,
+                        fill: true,
+                        borderWidth: 2
+                    }
+                ]
+            }
+
+            var panel = $('#chart1').get(0).getContext("2d");
+            var chart = new Chart(panel,
+                {
+                    type: 'pie',
+                    data: graph_data,
+                    options: { maintainAspectRatio: false }
+                }
+            );
+        }
+    </script>
+}
+
+
+<!--
+
+<h1>Charts</h1>
+<div class="container">
+    <canvas id="transactionChart"></canvas>
+</div>
+
+-->
