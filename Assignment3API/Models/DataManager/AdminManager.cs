@@ -145,5 +145,87 @@ namespace Assignment3API.Models.DataManager
 
             return list;
         }
+
+        public List<object> GetChart2Data(int id, DateTime start, DateTime end)
+        {
+
+            var transactions = _context.Transactions.Where(x => x.Account.CustomerID == id).ToList();
+            List<Transaction> filteredTransactions = new List<Transaction>();
+
+            foreach (var transaction in transactions)
+            {
+                // Range of specified time period
+                if (transaction.ModifyDate >= start && transaction.ModifyDate <= end)
+                    filteredTransactions.Add(transaction);
+            }
+
+            var labels = filteredTransactions.Select(x => x.ModifyDate.ToLongDateString()).ToArray();
+            var values = filteredTransactions.Select(x => x.Amount).ToArray();
+            var maxValue = values.Max();
+
+            List<object> list = new List<object>();
+            list.Add(labels);
+            list.Add(values);
+            list.Add(maxValue);
+
+            return list;
+        }
+
+        public List<object> GetChart3Data(int id, DateTime start, DateTime end)
+        {
+
+            var transactions = _context.Transactions.Where(x => x.Account.CustomerID == id).ToList();
+            List<Transaction> filteredTransactions = new List<Transaction>();
+
+            foreach (var transaction in transactions)
+            {
+                // Range of specified time period
+                if (transaction.ModifyDate >= start && transaction.ModifyDate <= end)
+                    filteredTransactions.Add(transaction);
+            }
+
+            //var data = filteredTransactions.GroupBy(x => new { group = x.TransactionType })
+            //                                .Select(group => new
+            //                                {
+            //                                    transactionType = group.Key.group,
+            //                                    total = 
+            //                                }).OrderByDescending(o => o.count).ToList();
+
+            decimal depositTotal = 0;
+            decimal withdrawTotal = 0;
+            decimal transferTotal = 0;
+            decimal billpayTotal = 0;
+
+            foreach (var trans in filteredTransactions)
+            {
+                if(trans.TransactionType == "D")
+                {
+                    depositTotal += trans.Amount;
+                }
+                else if(trans.TransactionType == "W")
+                {
+                    withdrawTotal += trans.Amount;
+                }
+                else if (trans.TransactionType == "T")
+                {
+                    transferTotal += trans.Amount;
+                }
+                else if (trans.TransactionType == "B")
+                {
+                    billpayTotal += trans.Amount;
+                }
+            }
+
+            string[] labels = { "Deposit", "Withdrawal", "Transfer", "BillPay" };
+            decimal[] values = { depositTotal, withdrawTotal, transferTotal, billpayTotal };
+            var maxValue = values.Max();
+
+            List<object> list = new List<object>();
+            list.Add(labels);
+            list.Add(values);
+            list.Add(maxValue);
+
+            return list;
+        }
     }
 }

@@ -218,5 +218,34 @@ namespace Assignment3Client.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Charts2(int id, DateTime start, DateTime end)
+        {
+            var startFormatted = start.ToString("dd-MM-yyyy");
+            var endFormatted = end.ToString("dd-MM-yyyy");
+
+            var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getChart2Data/{id}/{startFormatted}/{endFormatted}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception();
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> Charts3(int id, DateTime start, DateTime end)
+        {
+            var startFormatted = start.ToString("dd-MM-yyyy");
+            var endFormatted = end.ToString("dd-MM-yyyy");
+
+            var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getChart2Data/{id}/{startFormatted}/{endFormatted}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception();
+            }
+
+            return View();
+        }
     }
 }
