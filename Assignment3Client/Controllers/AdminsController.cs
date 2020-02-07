@@ -198,5 +198,25 @@ namespace Assignment3Client.Controllers
             return View(billpay);
         }
 
+        [Route("Home/Charts")]
+        public async Task<IActionResult> Charts(int id, DateTime start, DateTime end)
+        {
+            var startFormatted = start.ToString("dd-MM-yyyy");
+            var endFormatted = end.ToString("dd-MM-yyyy");
+
+            var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getChartData/{id}/{startFormatted}/{endFormatted}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception();
+            }
+
+            ViewBag.id = id;
+            ViewBag.start = startFormatted;
+            ViewBag.end = endFormatted;
+
+            return View();
+        }
+
     }
 }

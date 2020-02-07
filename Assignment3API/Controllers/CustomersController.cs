@@ -92,7 +92,11 @@ namespace Assignment3API.Controllers
             return _repo.Delete(id);
         }
 
-
+        [HttpGet("getChartData/{id}/{start}/{end}")]
+        public List<object> GetChartData(int id, string start, string end)
+        {
+            return _repo.GetChartData(id, DateTime.ParseExact(start, "dd-MM-yyyy", null), DateTime.ParseExact(end, "dd-MM-yyyy", null));
+        }
 
 
 

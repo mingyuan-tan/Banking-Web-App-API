@@ -112,5 +112,37 @@ namespace Assignment3API.Models.DataManager
 
             return account.CustomerID;
         }
+
+        public List<object> GetChartData(int id, DateTime start, DateTime end)
+        {
+
+            var transactions = _context.Transactions.Where(x => x.Account.CustomerID == id).ToList();
+            List<Transaction> filteredTransactions = new List<Transaction>();
+
+            foreach (var transaction in transactions)
+            {
+                // Range of specified time period
+                if (transaction.ModifyDate >= start && transaction.ModifyDate <= end)
+                    filteredTransactions.Add(transaction);
+            }
+
+            var data = filteredTransactions.GroupBy(x => new { group = x.TransactionType })
+                                            .Select(group => new
+                                            {
+                                                transactionType = group.Key.group,
+                                                count = group.Count()
+                                            }).OrderByDescending(o => o.count).ToList();
+
+            var labels = data.Select(x => x.transactionType).ToArray();
+            var values = data.Select(x => x.count).ToArray();
+            var maxValue = values[0];
+
+            List<object> list = new List<object>();
+            list.Add(labels);
+            list.Add(values);
+            list.Add(maxValue);
+
+            return list;
+        }
     }
 }
