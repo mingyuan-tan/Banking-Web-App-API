@@ -5,16 +5,17 @@
 <div class="card mb-3">
     <div class="card-header bg-warning text-dark">
         <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-        Testing Chart
+        Count of Transactions by Type from @ViewBag.start to @ViewBag.end
     </div>
     <div class="card-body">
-        <canvas id="chart1" class="chartjs-render-monitor" style="display: block; "></canvas>
+        <canvas id="chart1" class="chartjs-render-monitor" style="display: block"></canvas>
     </div>
 </div>
 
 @section scripts
 {
     <script src="~/js/Chart.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js" type="text/javascript"></script>-->
     <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
 
     <script>
@@ -31,7 +32,7 @@
                 success: data_arrived,
                 xhrFields: {
                     withCredentials: true
-                        }
+                }
             }
 
             $.ajax(option);
@@ -40,16 +41,45 @@
         function data_arrived(data)
         {
             console.log(data);
+            var x_data = data[0];
+            var y_data = data[1];
+
+            var ctx = document.getElementById('chart1').getContext('2d');
+            var chart1 = new Chart(ctx,
+                {
+                    type: 'bar',
+                    data:
+                    {
+                        labels: x_data,
+                        datasets: [{
+                            label: 'Number of Transactions',
+                            data: y_data,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                }
+            );
         }
     </script>
 }
-
-
-<!--
-
-<h1>Charts</h1>
-<div class="container">
-    <canvas id="transactionChart"></canvas>
-</div>
-
--->
