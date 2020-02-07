@@ -198,7 +198,7 @@ namespace Assignment3Client.Controllers
             return View(billpay);
         }
 
-        [Route("Home/Charts")]
+
         public async Task<IActionResult> Charts(int id, DateTime start, DateTime end)
         {
             var startFormatted = start.ToString("dd-MM-yyyy");
