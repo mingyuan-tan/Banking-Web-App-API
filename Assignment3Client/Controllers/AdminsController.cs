@@ -166,11 +166,11 @@ namespace Assignment3Client.Controllers
             return View(billpay);
         }
 
-        //[Route("Home/AdminThings5")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult EditBillPay(int id, BillPay billpay)
         {
+
             if (id != billpay.BillPayID)
             {
                 return NotFound();
@@ -178,12 +178,17 @@ namespace Assignment3Client.Controllers
 
             if (ModelState.IsValid)
             {
+
                 var content = new StringContent(JsonConvert.SerializeObject(billpay), Encoding.UTF8, "application/json");
                 var response = BankAPI.InitializeClient().PutAsync("api/BillPays", content).Result;
 
+                // These are to get customerID so it can be passed to ViewBillPays and get back into that page
+                var response2 = BankAPI.InitializeClient().GetAsync($"api/Customers/getCustomerFromBillPay/{id}");
+                int customerID = int.Parse(response2.Result.Content.ReadAsStringAsync().Result);
+
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("ViewBillPays");
+                    return RedirectToAction("ViewBillPays", new { id = customerID });
                 }
             }
 
