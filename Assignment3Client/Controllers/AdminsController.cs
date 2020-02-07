@@ -122,16 +122,23 @@ namespace Assignment3Client.Controllers
 
         }
 
-        public IActionResult Charts()
+        public IActionResult Charts(int id, DateTime start, DateTime end)
         {
+            var startFormatted = start.ToString("dd-MM-yyyy");
+            var endFormatted = end.ToString("dd-MM-yyyy");
+
+            ViewBag.id = id;
+            ViewBag.start = startFormatted;
+            ViewBag.end = endFormatted;
+
             return View();
         }
 
         public async Task<IActionResult> CreateChartsData(int id, DateTime start, DateTime end)
         {
-            ViewBag.id = id;
-            ViewBag.start = start;
-            ViewBag.end = end;
+            //ViewBag.id = id;
+            //ViewBag.start = start;
+            //ViewBag.end = end;
             
             var startFormatted = start.ToString("dd-MM-yyyy");
             var endFormatted = end.ToString("dd-MM-yyyy");
