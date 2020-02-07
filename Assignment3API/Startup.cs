@@ -22,6 +22,7 @@ namespace Assignment3API
             Configuration = configuration;
         }
 
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -29,6 +30,21 @@ namespace Assignment3API
         {
             services.AddDbContext<NwbaContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("NwbaContext")));
+
+
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowMyOrigin",
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:5000")
+                    .AllowCredentials()
+                    .AllowAnyHeader();
+                });
+            });
+
+
 
             services.AddTransient<AdminManager>();
 
@@ -44,9 +60,8 @@ namespace Assignment3API
             }
 
             app.UseRouting();
-
+            app.UseCors("AllowMyOrigin");
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

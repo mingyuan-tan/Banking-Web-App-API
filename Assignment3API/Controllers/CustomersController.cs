@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Assignment3API.Data;
 using Assignment3API.Models;
 using Assignment3API.Models.DataManager;
-
+using Microsoft.AspNetCore.Cors;
 
 namespace Assignment3API.Controllers
 {
+    [EnableCors]
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
@@ -92,6 +93,8 @@ namespace Assignment3API.Controllers
             return _repo.Delete(id);
         }
 
+
+  
         [HttpGet("getChartData/{id}/{start}/{end}")]
         public List<object> GetChartData(int id, string start, string end)
         {

@@ -25,10 +25,13 @@
             var option =
             {
                 type: "GET",
-                url: "/Admins/Charts?id=@ViewBag.id&start=@ViewBag.start&end=@ViewBag.end",
+                url: "http://localhost:49528/api/Customers/getChartData/@ViewBag.id/@ViewBag.start/@ViewBag.end",
                 contentType: "application/json;charset=utf-8",
                 datatype: "json",
-                success: data_arrived
+                success: data_arrived,
+                xhrFields: {
+                    withCredentials: true
+                        }
             }
 
             $.ajax(option);

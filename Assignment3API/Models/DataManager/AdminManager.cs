@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Assignment3API.Data;
 using Assignment3API.Models.Repository;
-
+using Microsoft.AspNetCore.Cors;
 
 namespace Assignment3API.Models.DataManager
 {
@@ -112,6 +112,7 @@ namespace Assignment3API.Models.DataManager
 
             return account.CustomerID;
         }
+
 
         public List<object> GetChartData(int id, DateTime start, DateTime end)
         {
