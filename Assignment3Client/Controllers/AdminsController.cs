@@ -16,7 +16,7 @@ namespace Assignment3Client.Controllers
     [AuthorizeAdmin]
     public class AdminsController : Controller
     {
-
+    
         public async Task<IActionResult> Index()
         {
             var response = await BankAPI.InitializeClient().GetAsync("api/Customers");
@@ -98,7 +98,7 @@ namespace Assignment3Client.Controllers
             return View();
         }
 
-
+       // [Route("Home/AdminThings5")]
         // Trying to get transactions within specified date parameters
         public async Task<IActionResult> ViewTransactions (int id, DateTime start, DateTime end)
         {
@@ -123,7 +123,9 @@ namespace Assignment3Client.Controllers
         }
 
 
+
        public async Task<IActionResult> ViewBillPays(int id)
+
         {
             var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getCustomerBillPays/{id}");
 
@@ -140,6 +142,7 @@ namespace Assignment3Client.Controllers
 
             return View(billPays);
         }
+
 
         public async Task<IActionResult> EditBillPay(int? id)
         {
@@ -163,6 +166,7 @@ namespace Assignment3Client.Controllers
             return View(billpay);
         }
 
+        //[Route("Home/AdminThings5")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult EditBillPay(int id, BillPay billpay)
