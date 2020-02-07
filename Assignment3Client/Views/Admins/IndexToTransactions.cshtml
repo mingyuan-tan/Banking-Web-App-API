@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Search Transactions";
+
+}
+
+<h1>Search Transactions</h1>
+<p> Enter the details of transactions you wish to view </p>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="ViewTransactions">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<input type="hidden" asp-for="BillPayID" />*@
+            <div class="form-group">
+                <label for="CustomerID" class="control-label">Customer ID</label>
+                <select for="CustomerID" name="id" class="form-control" asp-items="ViewBag.CustomerID"></select>
+
+                @Html.ValidationMessage("CustomerID", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label for="StartDate" class="control-label">Start Date</label>
+                <input id="StartDate" name="start" type="date" class="form-control"
+                       data-val="true" data-val-required="The Date field is required" />
+                @Html.ValidationMessage("start", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                <label for="EndDate" class="control-label">End Date</label>
+                <input id="EndDate" name="end" type="date" class="form-control"
+                       data-val="true" data-val-required="The Date field is required" />
+                @Html.ValidationMessage("end", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="View Transactions" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to Home</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

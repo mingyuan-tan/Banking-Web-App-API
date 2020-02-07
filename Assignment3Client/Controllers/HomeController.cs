@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Assignment3Client.Models;
@@ -21,6 +22,30 @@ namespace Assignment3Client.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(string adminLoginID, string password)
+        {
+            if(adminLoginID == "admin" && password == "admin")
+            {
+                // Session to check if admin is logged in 
+                HttpContext.Session.SetString(nameof(AdminLogin.AdminLoginID), adminLoginID);
+
+                return RedirectToAction("Index", "Admins");
+            }
+
+            ModelState.AddModelError("LoginFailed", "Login failed please try again");
+
+            return View(new AdminLogin { AdminLoginID = adminLoginID });
+        }
+
+        public IActionResult Logout()
+        {
+            // Log out admin
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Privacy()

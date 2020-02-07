@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
-namespace Assignment3API.Models
+namespace WDT_Assignment2.Models
 {
     public class Customer
     {
@@ -43,13 +43,12 @@ namespace Assignment3API.Models
         public string Phone { get; set; }
 
         [Required]
-        [RegularExpression("^(Active|Blocked)$")]
+        [RegularExpression("^(Active|Locked)$")]
         public string Status { get; set; }
-
 
         // Navigation Property - Customer has many accounts 
         [JsonIgnore]
-        public virtual List<Account> Accounts { get; set; }
+        public virtual List<Account> Accounts { get; set;}
 
         // Denotes 1 - 1 relationship between Customer and Login 
         [JsonIgnore]

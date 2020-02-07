@@ -26,13 +26,27 @@ namespace Assignment3API.Controllers
         }
 
 
-        // Calls repo method to get all transactions of user from specified date 
-        [HttpGet]
-        public IEnumerable<Transaction> GetCustomerTransactions (int id, DateTime start, DateTime end)
+        // Calls repo method to get all transactions of user from specified date
+        [HttpGet("getCustomerTransactions/{id}/{start}/{end}")]
+        public IEnumerable<Transaction> GetCustomerTransactions (int id, string start, string end)
         {
-            return _repo.GetCustomerTransactions(id, start, end);
+            //return new { id, start, end };
+
+            return _repo.GetCustomerTransactions(id, DateTime.ParseExact(start, "dd-MM-yyyy", null), DateTime.ParseExact(end, "dd-MM-yyyy", null));
         }
 
+        [HttpGet("getCustomerBillPays/{id}")]
+        public IEnumerable<BillPay> GetCustomerBillPays(int id)
+        {
+            return _repo.GetCustomerBillPays(id);
+        }
+
+
+        [HttpGet("getCustomerFromBillPay/{id}")] 
+        public int GetCustomerFromBillPay(int id)
+        {
+            return _repo.GetCustomerFromBillPay(id);
+        }
 
 
         // GET: api/customers - get all the customers 
