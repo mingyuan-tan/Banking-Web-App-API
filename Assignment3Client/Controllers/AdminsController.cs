@@ -36,7 +36,7 @@ namespace Assignment3Client.Controllers
             return View(customers);
         }
 
-        [Route("Home/AdminThings")]
+        //[Route("Home/AdminThings")]
         public async Task<IActionResult> EditCustomerProfile(int? id)
         {
             if (id == null)
@@ -86,7 +86,7 @@ namespace Assignment3Client.Controllers
             return View(customer);
         }
 
-        [Route("Home/AdminThings2")]
+        //[Route("Home/AdminThings2")]
         public async Task<IActionResult> IndexToTransactions()
         {
             var response = await BankAPI.InitializeClient().GetAsync("api/Customers");
@@ -101,7 +101,7 @@ namespace Assignment3Client.Controllers
             return View();
         }
 
-        [Route("Home/AdminThings5")]
+       // [Route("Home/AdminThings5")]
         // Trying to get transactions within specified date parameters
         public async Task<IActionResult> ViewTransactions (int id, DateTime start, DateTime end)
         {
@@ -126,7 +126,7 @@ namespace Assignment3Client.Controllers
         }
 
 
-        [Route("Home/AdminThing3")]
+       // [Route("Home/AdminThing3")]
         public async Task<IActionResult> ViewBillPays(int id)
         {
             var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getCustomerBillPays/{id}");
@@ -145,7 +145,7 @@ namespace Assignment3Client.Controllers
             return View(billPays);
         }
 
-        [Route("Home/AdminThings4")]
+       // [Route("Home/AdminThings4")]
         public async Task<IActionResult> EditBillPay(int? id)
         {
             if (id == null)
@@ -168,7 +168,7 @@ namespace Assignment3Client.Controllers
             return View(billpay);
         }
 
-        [Route("Home/AdminThings5")]
+        //[Route("Home/AdminThings5")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult EditBillPay(int id, BillPay billpay)
