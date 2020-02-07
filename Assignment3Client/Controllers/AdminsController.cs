@@ -13,11 +13,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Assignment3Client.Controllers
 {
-
     [AuthorizeAdmin]
     public class AdminsController : Controller
     {
-        [Route("Home")]
+    
         public async Task<IActionResult> Index()
         {
             var response = await BankAPI.InitializeClient().GetAsync("api/Customers");
@@ -36,7 +35,6 @@ namespace Assignment3Client.Controllers
             return View(customers);
         }
 
-        //[Route("Home/AdminThings")]
         public async Task<IActionResult> EditCustomerProfile(int? id)
         {
             if (id == null)
@@ -86,7 +84,6 @@ namespace Assignment3Client.Controllers
             return View(customer);
         }
 
-        //[Route("Home/AdminThings2")]
         public async Task<IActionResult> IndexToTransactions()
         {
             var response = await BankAPI.InitializeClient().GetAsync("api/Customers");
@@ -126,8 +123,9 @@ namespace Assignment3Client.Controllers
         }
 
 
-       // [Route("Home/AdminThing3")]
-        public async Task<IActionResult> ViewBillPays(int id)
+
+       public async Task<IActionResult> ViewBillPays(int id)
+
         {
             var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getCustomerBillPays/{id}");
 
@@ -145,7 +143,7 @@ namespace Assignment3Client.Controllers
             return View(billPays);
         }
 
-       // [Route("Home/AdminThings4")]
+
         public async Task<IActionResult> EditBillPay(int? id)
         {
             if (id == null)
@@ -173,7 +171,6 @@ namespace Assignment3Client.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditBillPay(int id, BillPay billpay)
         {
-
             if (id != billpay.BillPayID)
             {
                 return NotFound();
@@ -181,17 +178,12 @@ namespace Assignment3Client.Controllers
 
             if (ModelState.IsValid)
             {
-
                 var content = new StringContent(JsonConvert.SerializeObject(billpay), Encoding.UTF8, "application/json");
                 var response = BankAPI.InitializeClient().PutAsync("api/BillPays", content).Result;
 
-                // These are to get customerID so it can be passed to ViewBillPays and get back into that page
-                var response2 = BankAPI.InitializeClient().GetAsync($"api/Customers/getCustomerFromBillPay/{id}");
-                int customerID = int.Parse(response2.Result.Content.ReadAsStringAsync().Result);
-
                 if (response.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("ViewBillPays", new { id = customerID });
+                    return RedirectToAction("ViewBillPays");
                 }
             }
 
@@ -200,8 +192,6 @@ namespace Assignment3Client.Controllers
 
             return View(billpay);
         }
-
-    
 
     }
 }

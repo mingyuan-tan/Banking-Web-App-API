@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Charts";
+}
+
+<div class="card mb-3">
+    <div class="card-header bg-warning text-dark">
+        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+        Testing Chart
+    </div>
+    <div class="card-body">
+        <canvas id="chart1" class="chartjs-render-monitor" style="display: block; "></canvas>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/js/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
+    <script>
+        $(document).ready(setup);
+
+        function setup()
+        {
+            var option =
+            {
+                type: "GET",
+                url: "/Admins/CreateChartsData?id=@ViewBag.id&start=@ViewBag.start&end=@ViewBag.end",
+                contentType: "application/json;charset=utf-8",
+                datatype: "json",
+                success: data_arrived
+            }
+
+            $.ajax(option);
+        }
+
+        function data_arrived(data)
+        {
+            console.log(data);
+        }
+    </script>
+}
+
+
+<!--
+
+<h1>Charts</h1>
+<div class="container">
+    <canvas id="transactionChart"></canvas>
+</div>
+
+-->
