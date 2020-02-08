@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Assignment3Client.Attributes;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +15,8 @@ namespace Assignment3Client.Controllers
     [AuthorizeAdmin]
     public class AdminsController : Controller
     {
-    
+
+        [Route("ioihegfi*&^797677UHFIF")]
         public async Task<IActionResult> Index()
         {
             var response = await BankAPI.InitializeClient().GetAsync("api/Customers");
@@ -98,7 +98,6 @@ namespace Assignment3Client.Controllers
             return View();
         }
 
-       // [Route("Home/AdminThings5")]
         // Trying to get transactions within specified date parameters
         public async Task<IActionResult> ViewTransactions (int id, DateTime start, DateTime end)
         {
@@ -118,13 +117,17 @@ namespace Assignment3Client.Controllers
             // Deserializing the response received from web api and storing into a list 
             var transactions = JsonConvert.DeserializeObject<List<Transaction>>(result);
 
-            return View(transactions);
+            if (transactions.Count == 0)
+            {
+                return View("NoTransactions");
+            }
 
+            return View(transactions);
         }
 
 
-
-       public async Task<IActionResult> ViewBillPays(int id)
+        [Route("iooihgpouisg985^%$%^$F")]
+        public async Task<IActionResult> ViewBillPays(int id)
 
         {
             var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getCustomerBillPays/{id}");
@@ -191,12 +194,82 @@ namespace Assignment3Client.Controllers
                     return RedirectToAction("ViewBillPays", new { id = customerID });
                 }
             }
-
             ViewData["Status"] = new BillPayViewModel().Status;
-
 
             return View(billpay);
         }
 
+        
+        public async Task<IActionResult> Charts(int id, DateTime start, DateTime end)
+        {
+            var startFormatted = start.ToString("dd-MM-yyyy");
+            var endFormatted = end.ToString("dd-MM-yyyy");
+
+            var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getChartData/{id}/{startFormatted}/{endFormatted}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception();
+                //return View("NoTransactions");
+            }
+
+            // Storing response details received from the web api 
+            var result = response.Content.ReadAsStringAsync().Result;
+
+            // Deserializing the response received from web api and storing into a list 
+            var transactions = JsonConvert.DeserializeObject<List<object>>(result);
+
+            if (transactions.Count == 0)
+            {
+                return View("NoTransactions");
+            }
+
+            ViewBag.id = id;
+            ViewBag.start = startFormatted;
+            ViewBag.end = endFormatted;
+
+            return View();
+        }
+
+
+        //public async Task<IActionResult> Charts2(int id, DateTime start, DateTime end)
+        //{
+        //    var startFormatted = start.ToString("dd-MM-yyyy");
+        //    var endFormatted = end.ToString("dd-MM-yyyy");
+
+        //    var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getChart2Data/{id}/{startFormatted}/{endFormatted}");
+
+        //    if (response == null)
+        //    {
+        //        return View("NoTransactions");
+        //    }
+
+        //    if (!response.IsSuccessStatusCode)
+        //    {
+        //        throw new Exception();
+        //    }
+
+        //    return View();
+        //}
+
+        //public async Task<IActionResult> Charts3(int id, DateTime start, DateTime end)
+        //{
+        //    var startFormatted = start.ToString("dd-MM-yyyy");
+        //    var endFormatted = end.ToString("dd-MM-yyyy");
+
+        //    var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getChart2Data/{id}/{startFormatted}/{endFormatted}");
+
+        //    if (response == null)
+        //    {
+        //        return View("NoTransactions");
+        //    }
+
+        //    if (!response.IsSuccessStatusCode)
+        //    {
+        //        throw new Exception();
+        //    }
+
+        //    return View();
+        //}
     }
 }

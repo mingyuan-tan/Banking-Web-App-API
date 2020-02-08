@@ -43,7 +43,7 @@ namespace Assignment3API.Models
         public string Phone { get; set; }
 
         [Required]
-        [RegularExpression("^(Active|Blocked)$")]
+        [RegularExpression("^(Active|Locked)$")]
         public string Status { get; set; }
 
 

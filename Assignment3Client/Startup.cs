@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -42,6 +38,10 @@ namespace Assignment3Client
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            //set up a middleware to handle the request in the pipeline
+            app.UseStatusCodePagesWithReExecute("/StatusCode/{0}");
+
             app.UseStaticFiles();
 
             app.UseRouting();
