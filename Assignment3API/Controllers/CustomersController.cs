@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Assignment3API.Data;
 using Assignment3API.Models;
 using Assignment3API.Models.DataManager;
 using Microsoft.AspNetCore.Cors;
@@ -26,7 +21,6 @@ namespace Assignment3API.Controllers
             _repo = repo;
         }
 
-
         // Calls repo method to get all transactions of user from specified date
         [HttpGet("getCustomerTransactions/{id}/{start}/{end}")]
         public IEnumerable<Transaction> GetCustomerTransactions (int id, string start, string end)
@@ -42,13 +36,11 @@ namespace Assignment3API.Controllers
             return _repo.GetCustomerBillPays(id);
         }
 
-
         [HttpGet("getCustomerFromBillPay/{id}")] 
         public int GetCustomerFromBillPay(int id)
         {
             return _repo.GetCustomerFromBillPay(id);
         }
-
 
         // GET: api/customers - get all the customers 
         // Notice that in this method we are not writing any query. All the logic is handled 
@@ -59,14 +51,12 @@ namespace Assignment3API.Controllers
             return _repo.GetAll();
         }
 
-
         // GET api/customers/1
         [HttpGet("{id}")]
         public Customer Get(int id)
         {
             return _repo.Get(id);
         }
-
 
         // POST api/customers 
         // Usually you want to return the status of the post (whether it succeeded or failed) 
@@ -76,7 +66,6 @@ namespace Assignment3API.Controllers
         {
             _repo.Update(customer.CustomerID, customer);
         }
-
 
         // PUT api/movies 
         // Insert a new movie 
@@ -93,18 +82,21 @@ namespace Assignment3API.Controllers
             return _repo.Delete(id);
         }
   
+        // retrieves the data for the first chart from the web api
         [HttpGet("getChartData/{id}/{start}/{end}")]
         public List<object> GetChartData(int id, string start, string end)
         {
             return _repo.GetChartData(id, DateTime.ParseExact(start, "dd-MM-yyyy", null), DateTime.ParseExact(end, "dd-MM-yyyy", null));
         }
 
+        // retrieves the data for the second chart from the web api
         [HttpGet("getChart2Data/{id}/{start}/{end}")]
         public List<object> GetChart2Data(int id, string start, string end)
         {
             return _repo.GetChart2Data(id, DateTime.ParseExact(start, "dd-MM-yyyy", null), DateTime.ParseExact(end, "dd-MM-yyyy", null));
         }
 
+        // retrieves the data for the third chart from the web api
         [HttpGet("getChart3Data/{id}/{start}/{end}")]
         public List<object> GetChart3Data(int id, string start, string end)
         {

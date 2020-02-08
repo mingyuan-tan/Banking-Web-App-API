@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,7 +19,6 @@ namespace Assignment3Client.Controllers
         {
             return View();
         }
-
         
         [HttpPost]
         public IActionResult Index(string adminLoginID, string password)

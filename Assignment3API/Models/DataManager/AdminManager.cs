@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Assignment3API.Data;
 using Assignment3API.Models.Repository;
-using Microsoft.AspNetCore.Cors;
 
 namespace Assignment3API.Models.DataManager
 {
@@ -16,7 +14,6 @@ namespace Assignment3API.Models.DataManager
         {
             _context = context;
         }
-
 
         // Gets all Transactions for a user 
         public List<Transaction> GetCustomerTransactions(int id, DateTime start, DateTime end)
@@ -30,7 +27,6 @@ namespace Assignment3API.Models.DataManager
                 if (transaction.ModifyDate >= start && transaction.ModifyDate <= end)
                     filteredTransactions.Add(transaction);
             }
-
 
             return filteredTransactions;
         }
@@ -47,14 +43,11 @@ namespace Assignment3API.Models.DataManager
             return _context.Customers.Find(id);
         }
 
-
         // Simple loading and getting all the data 
         public IEnumerable<Customer> GetAll()
         {
-
             return _context.Customers.ToList();
         }
-
 
         // Inserts data and generate a new customer
         public int Add(Customer customer)
@@ -74,7 +67,6 @@ namespace Assignment3API.Models.DataManager
             return id;
         }
 
-
         public int Update (int id, Customer customer)
         {
             _context.Update(customer);
@@ -85,7 +77,6 @@ namespace Assignment3API.Models.DataManager
 
         public IEnumerable<BillPay> GetAllBillPays()
         {
-
             return _context.BillPays.ToList();
         }
 
@@ -105,18 +96,14 @@ namespace Assignment3API.Models.DataManager
         public int GetCustomerFromBillPay(int id)
         {
             var billPay = _context.BillPays.Where(x => x.BillPayID == id).FirstOrDefault();
-
             var account = _context.Accounts.Where(x => x.AccountNumber == billPay.AccountNumber).FirstOrDefault();
-
-            
 
             return account.CustomerID;
         }
 
-
+        // Generates the data required to input into the first chart
         public List<object> GetChartData(int id, DateTime start, DateTime end)
         {
-
             var transactions = _context.Transactions.Where(x => x.Account.CustomerID == id).ToList();
             List<Transaction> filteredTransactions = new List<Transaction>();
 
@@ -146,6 +133,7 @@ namespace Assignment3API.Models.DataManager
             return list;
         }
 
+        // Generates the data required to input into the second chart
         public List<object> GetChart2Data(int id, DateTime start, DateTime end)
         {
 
@@ -171,9 +159,9 @@ namespace Assignment3API.Models.DataManager
             return list;
         }
 
+        // Generates the data required to input into the third chart
         public List<object> GetChart3Data(int id, DateTime start, DateTime end)
         {
-
             var transactions = _context.Transactions.Where(x => x.Account.CustomerID == id).ToList();
             List<Transaction> filteredTransactions = new List<Transaction>();
 
@@ -183,13 +171,6 @@ namespace Assignment3API.Models.DataManager
                 if (transaction.ModifyDate >= start && transaction.ModifyDate <= end)
                     filteredTransactions.Add(transaction);
             }
-
-            //var data = filteredTransactions.GroupBy(x => new { group = x.TransactionType })
-            //                                .Select(group => new
-            //                                {
-            //                                    transactionType = group.Key.group,
-            //                                    total = 
-            //                                }).OrderByDescending(o => o.count).ToList();
 
             decimal depositTotal = 0;
             decimal withdrawTotal = 0;

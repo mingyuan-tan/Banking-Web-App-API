@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Assignment3Client.Attributes;
 using Microsoft.AspNetCore.Mvc;
@@ -85,7 +84,6 @@ namespace Assignment3Client.Controllers
             return View(customer);
         }
 
-        
         public async Task<IActionResult> IndexToTransactions()
         {
             var response = await BankAPI.InitializeClient().GetAsync("api/Customers");
@@ -101,7 +99,6 @@ namespace Assignment3Client.Controllers
         }
 
         // Trying to get transactions within specified date parameters
-     
         public async Task<IActionResult> ViewTransactions (int id, DateTime start, DateTime end)
         {
             var startFormatted = start.ToString("dd-MM-yyyy");
@@ -121,7 +118,6 @@ namespace Assignment3Client.Controllers
             var transactions = JsonConvert.DeserializeObject<List<Transaction>>(result);
 
             return View(transactions);
-
         }
 
 
@@ -193,9 +189,7 @@ namespace Assignment3Client.Controllers
                     return RedirectToAction("ViewBillPays", new { id = customerID });
                 }
             }
-
             ViewData["Status"] = new BillPayViewModel().Status;
-
 
             return View(billpay);
         }
