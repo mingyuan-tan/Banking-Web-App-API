@@ -1,16 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Assignment3API.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 
 namespace Assignment3API.Data
 {
     public class NwbaContext : DbContext
     {
-
         public NwbaContext(DbContextOptions<NwbaContext> options) : base(options)
         { }
 
@@ -21,7 +15,6 @@ namespace Assignment3API.Data
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<BillPay> BillPays { get; set; }
         public DbSet<Payee> Payees { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

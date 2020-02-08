@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Assignment3API.Data;
 using Assignment3API.Models;
 using Assignment3API.Models.DataManager;
 
@@ -23,7 +17,6 @@ namespace Assignment3API.Controllers
         {
             _repo = repo;
         }
-
 
         // GET: api/BillPay - get all the BillPay 
         // Notice that in this method we are not writing any query. All the logic is handled 

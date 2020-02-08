@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Assignment3API.Data;
 using Assignment3API.Models.DataManager;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +24,17 @@ namespace Assignment3API
             services.AddDbContext<NwbaContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("NwbaContext")));
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowMyOrigin",
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:5000")
+                    .AllowCredentials()
+                    .AllowAnyHeader();
+                });
+            });
+
             services.AddTransient<AdminManager>();
 
             services.AddControllers();
@@ -44,9 +49,8 @@ namespace Assignment3API
             }
 
             app.UseRouting();
-
+            app.UseCors("AllowMyOrigin");
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
