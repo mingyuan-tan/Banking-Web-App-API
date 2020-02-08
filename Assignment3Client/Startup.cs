@@ -44,6 +44,10 @@ namespace Assignment3Client
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            //set up a middleware to handle the request in the pipeline
+            app.UseStatusCodePagesWithReExecute("/StatusCode/{0}");
+
             app.UseStaticFiles();
 
             app.UseRouting();
