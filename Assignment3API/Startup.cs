@@ -29,7 +29,7 @@ namespace Assignment3API
                 options.AddPolicy("AllowMyOrigin",
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:5000")
+                    builder.WithOrigins("http://localhost:5000", "http://localhost:49789")
                     .AllowCredentials()
                     .AllowAnyHeader();
                 });
