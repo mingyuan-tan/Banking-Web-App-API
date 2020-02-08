@@ -105,6 +105,9 @@ namespace Assignment3API.Models.DataManager
         public List<object> GetChartData(int id, DateTime start, DateTime end)
         {
             var transactions = _context.Transactions.Where(x => x.Account.CustomerID == id).ToList();
+
+            
+
             List<Transaction> filteredTransactions = new List<Transaction>();
 
             foreach (var transaction in transactions)
@@ -112,6 +115,15 @@ namespace Assignment3API.Models.DataManager
                 // Range of specified time period
                 if (transaction.ModifyDate >= start && transaction.ModifyDate <= end)
                     filteredTransactions.Add(transaction);
+            }
+
+
+            if (filteredTransactions.Count == 0)
+            {
+                List<object> emptyList = new List<object>();
+                emptyList.Clear();
+                //emptyList.Add(filteredTransactions);
+                return emptyList;
             }
 
             var data = filteredTransactions.GroupBy(x => new { group = x.TransactionType })

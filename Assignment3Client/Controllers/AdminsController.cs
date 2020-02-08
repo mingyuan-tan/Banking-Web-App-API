@@ -117,6 +117,11 @@ namespace Assignment3Client.Controllers
             // Deserializing the response received from web api and storing into a list 
             var transactions = JsonConvert.DeserializeObject<List<Transaction>>(result);
 
+            if (transactions.Count == 0)
+            {
+                return View("NoTransactions");
+            }
+
             return View(transactions);
         }
 
@@ -205,6 +210,18 @@ namespace Assignment3Client.Controllers
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception();
+                //return View("NoTransactions");
+            }
+
+            // Storing response details received from the web api 
+            var result = response.Content.ReadAsStringAsync().Result;
+
+            // Deserializing the response received from web api and storing into a list 
+            var transactions = JsonConvert.DeserializeObject<List<object>>(result);
+
+            if (transactions.Count == 0)
+            {
+                return View("NoTransactions");
             }
 
             ViewBag.id = id;
@@ -215,34 +232,44 @@ namespace Assignment3Client.Controllers
         }
 
 
-        public async Task<IActionResult> Charts2(int id, DateTime start, DateTime end)
-        {
-            var startFormatted = start.ToString("dd-MM-yyyy");
-            var endFormatted = end.ToString("dd-MM-yyyy");
+        //public async Task<IActionResult> Charts2(int id, DateTime start, DateTime end)
+        //{
+        //    var startFormatted = start.ToString("dd-MM-yyyy");
+        //    var endFormatted = end.ToString("dd-MM-yyyy");
 
-            var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getChart2Data/{id}/{startFormatted}/{endFormatted}");
+        //    var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getChart2Data/{id}/{startFormatted}/{endFormatted}");
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception();
-            }
+        //    if (response == null)
+        //    {
+        //        return View("NoTransactions");
+        //    }
 
-            return View();
-        }
+        //    if (!response.IsSuccessStatusCode)
+        //    {
+        //        throw new Exception();
+        //    }
 
-        public async Task<IActionResult> Charts3(int id, DateTime start, DateTime end)
-        {
-            var startFormatted = start.ToString("dd-MM-yyyy");
-            var endFormatted = end.ToString("dd-MM-yyyy");
+        //    return View();
+        //}
 
-            var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getChart2Data/{id}/{startFormatted}/{endFormatted}");
+        //public async Task<IActionResult> Charts3(int id, DateTime start, DateTime end)
+        //{
+        //    var startFormatted = start.ToString("dd-MM-yyyy");
+        //    var endFormatted = end.ToString("dd-MM-yyyy");
 
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception();
-            }
+        //    var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getChart2Data/{id}/{startFormatted}/{endFormatted}");
 
-            return View();
-        }
+        //    if (response == null)
+        //    {
+        //        return View("NoTransactions");
+        //    }
+
+        //    if (!response.IsSuccessStatusCode)
+        //    {
+        //        throw new Exception();
+        //    }
+
+        //    return View();
+        //}
     }
 }
