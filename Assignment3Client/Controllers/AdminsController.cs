@@ -16,7 +16,8 @@ namespace Assignment3Client.Controllers
     [AuthorizeAdmin]
     public class AdminsController : Controller
     {
-    
+
+        [Route("ioihegfi*&^797677UHFIF")]
         public async Task<IActionResult> Index()
         {
             var response = await BankAPI.InitializeClient().GetAsync("api/Customers");
@@ -84,6 +85,7 @@ namespace Assignment3Client.Controllers
             return View(customer);
         }
 
+        
         public async Task<IActionResult> IndexToTransactions()
         {
             var response = await BankAPI.InitializeClient().GetAsync("api/Customers");
@@ -98,8 +100,8 @@ namespace Assignment3Client.Controllers
             return View();
         }
 
-       // [Route("Home/AdminThings5")]
         // Trying to get transactions within specified date parameters
+     
         public async Task<IActionResult> ViewTransactions (int id, DateTime start, DateTime end)
         {
             var startFormatted = start.ToString("dd-MM-yyyy");
@@ -123,8 +125,8 @@ namespace Assignment3Client.Controllers
         }
 
 
-
-       public async Task<IActionResult> ViewBillPays(int id)
+        [Route("iooihgpouisg985^%$%^$F")]
+        public async Task<IActionResult> ViewBillPays(int id)
 
         {
             var response = await BankAPI.InitializeClient().GetAsync($"api/Customers/getCustomerBillPays/{id}");
@@ -198,7 +200,7 @@ namespace Assignment3Client.Controllers
             return View(billpay);
         }
 
-
+        
         public async Task<IActionResult> Charts(int id, DateTime start, DateTime end)
         {
             var startFormatted = start.ToString("dd-MM-yyyy");
@@ -217,6 +219,7 @@ namespace Assignment3Client.Controllers
 
             return View();
         }
+
 
         public async Task<IActionResult> Charts2(int id, DateTime start, DateTime end)
         {

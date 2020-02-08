@@ -54,14 +54,28 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ScheduleDate)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Period)
-            </td>
+                @if (item.Period == "M")
+                {
+                    <td>Monthly</td>
+                }
+                else if (item.Period == "Q")
+                {
+                    <td>Quarterly</td>
+                }
+                else if (item.Period == "A")
+                {
+                    <td>Yearly</td>
+                }
+                else if (item.Period == "S")
+                {
+                    <td>Once Off</td>
+                }
+           
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.ActionLink("Change Status", "EditBillPay", new {  id=item.BillPayID  }) 
+                @Html.ActionLink("Change Status", "EditBillPay", new { id = item.BillPayID })
             </td>
         </tr>
 }

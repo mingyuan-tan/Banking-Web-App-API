@@ -24,6 +24,7 @@ namespace Assignment3Client.Controllers
             return View();
         }
 
+        
         [HttpPost]
         public IActionResult Index(string adminLoginID, string password)
         {
