@@ -75,6 +75,7 @@ namespace Assignment3API.Models.DataManager
             return id;
         }
 
+        // Get all customer's billpay
         public IEnumerable<BillPay> GetAllBillPays()
         {
             return _context.BillPays.ToList();
@@ -93,6 +94,7 @@ namespace Assignment3API.Models.DataManager
             return _context.BillPays.Find(id);
         }
 
+        // Return customer id from billpay so that it can be passed into method and return the View BillPays page
         public int GetCustomerFromBillPay(int id)
         {
             var billPay = _context.BillPays.Where(x => x.BillPayID == id).FirstOrDefault();
@@ -122,7 +124,6 @@ namespace Assignment3API.Models.DataManager
             {
                 List<object> emptyList = new List<object>();
                 emptyList.Clear();
-                //emptyList.Add(filteredTransactions);
                 return emptyList;
             }
 

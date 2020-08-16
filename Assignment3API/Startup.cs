@@ -24,6 +24,7 @@ namespace Assignment3API
             services.AddDbContext<NwbaContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("NwbaContext")));
 
+            // Enable cors for the origin which is our web client 
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowMyOrigin",

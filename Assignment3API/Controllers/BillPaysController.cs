@@ -35,7 +35,7 @@ namespace Assignment3API.Controllers
         }
 
         // PUT api/movies 
-        // Insert a new movie 
+        // Insert a new billpay 
         [HttpPut]
         public void Put([FromBody] BillPay billPay)
         {
