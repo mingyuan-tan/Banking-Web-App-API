@@ -8,6 +8,7 @@ namespace WDT_Assignment2.Models
 {
     public class Customer
     {
+        [Display(Name = "Customer ID")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required, Range(1000, 9999)]
         public int CustomerID { get; set; }

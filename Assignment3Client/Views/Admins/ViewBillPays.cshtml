@@ -8,76 +8,78 @@
 
 <h1 class="display-4">Customer BillPays</h1>
 
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.BillPayID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AccountNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PayeeID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ScheduleDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Period)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BillPayID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AccountNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PayeeID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ScheduleDate)
+                    </td>
+                    @if (item.Period == "M")
+                    {
+                        <td>Monthly</td>
+                    }
+                    else if (item.Period == "Q")
+                    {
+                        <td>Quarterly</td>
+                    }
+                    else if (item.Period == "A")
+                    {
+                        <td>Yearly</td>
+                    }
+                    else if (item.Period == "S")
+                    {
+                        <td>Once Off</td>
+                    }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.BillPayID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AccountNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PayeeID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ScheduleDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Period)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BillPayID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AccountNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PayeeID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ScheduleDate)
-            </td>
-                @if (item.Period == "M")
-                {
-                    <td>Monthly</td>
-                }
-                else if (item.Period == "Q")
-                {
-                    <td>Quarterly</td>
-                }
-                else if (item.Period == "A")
-                {
-                    <td>Yearly</td>
-                }
-                else if (item.Period == "S")
-                {
-                    <td>Once Off</td>
-                }
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.ActionLink("Change Status", "EditBillPay", new { id = item.BillPayID })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Change Status", "EditBillPay", new { id = item.BillPayID })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

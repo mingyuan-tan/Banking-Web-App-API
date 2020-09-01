@@ -16,7 +16,7 @@ namespace Assignment3Client.Controllers
     public class AdminsController : Controller
     {
 
-        [Route("ioihegfi*&^797677UHFIF")]
+        //[Route("ioihegfi*&^797677UHFIF")]
         public async Task<IActionResult> Index()
         {
             var response = await BankAPI.InitializeClient().GetAsync("api/Customers");
@@ -126,7 +126,7 @@ namespace Assignment3Client.Controllers
         }
 
 
-        [Route("iooihgpouisg985^%$%^$F")]
+       // [Route("iooihgpouisg985^%$%^$F")]
         public async Task<IActionResult> ViewBillPays(int id)
 
         {

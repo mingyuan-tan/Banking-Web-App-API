@@ -67,8 +67,7 @@ namespace Assignment3API.Controllers
             _repo.Update(customer.CustomerID, customer);
         }
 
-        // PUT api/movies 
-        // Insert a new movie 
+
         [HttpPut]
         public void Put([FromBody] Customer customer)
         {
@@ -82,21 +81,21 @@ namespace Assignment3API.Controllers
             return _repo.Delete(id);
         }
   
-        // retrieves the data for the first chart from the web api
+        // Retrieves the data for the first chart from the web api
         [HttpGet("getChartData/{id}/{start}/{end}")]
         public List<object> GetChartData(int id, string start, string end)
         {
             return _repo.GetChartData(id, DateTime.ParseExact(start, "dd-MM-yyyy", null), DateTime.ParseExact(end, "dd-MM-yyyy", null));
         }
 
-        // retrieves the data for the second chart from the web api
+        // Retrieves the data for the second chart from the web api
         [HttpGet("getChart2Data/{id}/{start}/{end}")]
         public List<object> GetChart2Data(int id, string start, string end)
         {
             return _repo.GetChart2Data(id, DateTime.ParseExact(start, "dd-MM-yyyy", null), DateTime.ParseExact(end, "dd-MM-yyyy", null));
         }
 
-        // retrieves the data for the third chart from the web api
+        // Retrieves the data for the third chart from the web api
         [HttpGet("getChart3Data/{id}/{start}/{end}")]
         public List<object> GetChart3Data(int id, string start, string end)
         {
