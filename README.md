@@ -2,4 +2,4 @@ This is the Web API and admin portal part of the Banking System project. If you 
 
 https://github.com/mingyuan-tan/Banking-Web-App-.NetCore
 
-# .NETCore-Project-Part3
+# Banking-Web-App-API
